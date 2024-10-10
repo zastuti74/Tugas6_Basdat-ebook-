@@ -1,0 +1,57 @@
+CREATE DATABASE Mhs;
+
+USE Mhs;
+
+CREATE TABLE mahasiswa (
+    nim VARCHAR(10) PRIMARY KEY,
+    nama VARCHAR(100),
+    prodi VARCHAR(50),
+    bayar DECIMAL(10, 2)
+);
+
+INSERT INTO mahasiswa (nim, nama, prodi, bayar) VALUES
+('A001', 'AB', 'INF', 10),
+('A002', 'BC', 'SI', 20),
+('A003', 'C', 'ARS', 15),
+('A004', 'D', 'INF', 30),
+('A005', 'E', 'INF', 10),
+('A006', 'F', 'TSP', 25),
+('A007', 'G', 'ARS', 15),
+('A008', 'HI', 'SI', 10);
+
+SELECT * FROM mahasiswa;
+
+SELECT prodi, count(*) AS jml_mhs
+FROM mahasiswa 
+WHERE prodi = 'INF';
+
+
+SELECT prodi, COUNT(prodi) AS jml_mhs
+FROM mahasiswa
+GROUP BY prodi
+HAVING COUNT(prodi) >= 2;
+
+SELECT 
+    AVG(bayar) AS avg_bayar,        
+    COUNT(prodi) AS count_informatika, 
+    COUNT(*) AS total_mahasiswa,   
+    MAX(bayar) AS max_bayar,       
+    MIN(bayar) AS min_bayar           
+FROM mahasiswa;
+
+
+SELECT prodi, SUM(bayar) AS total_bayar
+FROM mahasiswa
+GROUP BY prodi;
+
+SELECT prodi, SUM(bayar) AS jml_bayar
+from mahasiswa
+GROUP BY prodi
+ORDER BY jml_bayar DESC
+LIMIT 1;
+
+SELECT DISTINCT prodi 
+FROM mahasiswa;
+
+SELECT * FROM mahasiswa
+ORDER BY prodi ASC, bayar DESC;
